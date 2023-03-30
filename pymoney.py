@@ -1,19 +1,13 @@
 import sys
 L = []
-index = 0
-
 
 try:
     fh = open('records.txt', 'r')
     have = int(fh.readline())
     records = fh.readlines()
-    print(have)
-    print(records)
     for item in records:
         item = item[:-1]
-        print(f'index:{index} {item}')
         L.append(item.split(' '))
-        index += 1
 except:
     try:
         have = int(input('How much money do you have? '))
@@ -21,6 +15,7 @@ except:
         sys.stderr.write('Invalid value for money. Set to 0 by default.\n')
         have = 0
 else:
+    print('Welcome back!')
     fh.close()
 
 
@@ -42,15 +37,13 @@ while True:
         else:
             have += amount
             L.append(item)
-            index += 1
-            # print(L)
 
     elif cmd == 'view':
         print("Here's your expense and income records:")
         print('   {:^17}{:6}'.format('Description', 'Amount'))
         print('='*2 + ' ' + '='*16 + ' ' + '='*6)
-        for i in range(index):
-            print('{:2} {:18}{:6}'.format(i, L[i][0], L[i][1]))
+        for i in range(len(L)):
+            print('{:<2} {:<17}{:<6}'.format(i, L[i][0], L[i][1]))
         print('='*2 + ' ' + '='*16 + ' ' + '='*6)
         print('Now you have {} dollars.'.format(have))
 
@@ -63,8 +56,6 @@ while True:
         except ValueError:
             sys.stderr.write('Invalid format. Fail to delete a record.\n')
         else:
-            index -= 1
-            # print('delete' + ' ' + L.pop(i)[0] + '\n')
             print(f'delete {L.pop(i)[0]}')
 
     elif cmd == 'exit':
