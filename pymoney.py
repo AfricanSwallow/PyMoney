@@ -18,7 +18,7 @@ def initialize():
     else:
         print('Welcome back!')
         fh.close()
-    return (initial_money, records)
+    return initial_money, records
     
 def add(initial_money, records):
     print('Add an expense or income record with description and amount:')
@@ -27,7 +27,7 @@ def add(initial_money, records):
     if len(item) != 2:
         sys.stderr.write('The format of a record should be like this: breakfast -50.\n')
         sys.stderr.write('Fail to add a record.\n')
-        return records
+        return initial_money, records
     
     try:
         amount = int(item[1])
@@ -36,7 +36,7 @@ def add(initial_money, records):
     else:
         initial_money += amount
         records.append(item)
-    return (initial_money, records)
+    return initial_money, records
 
 def view(initial_money, records):
     print("Here's your expense and income records:")
@@ -48,8 +48,8 @@ def view(initial_money, records):
     print('Now you have {} dollars.'.format(initial_money))
 
 def delete(initial_money, records):
-    i = int(input('Which line of record do you want to delete? '))
     try:
+        i = int(input('Which line of record do you want to delete? '))
         initial_money -= int(records[i][1])
     except IndexError:
         sys.stderr.write(f'Index out of range. There if no line {i}.\n')
