@@ -136,30 +136,17 @@ class Categories:
     def find_subcategories(self, category):
         """Take a category name and return a non-nested list containing 
             the specified category and all the subcategories"""
-        def find(category, categories):
+        def find_subcategories_gen(category, categories, found=False):
             if type(categories) == list:
-                for i, v in enumerate(categories):
-                    p = find(category, v)
-                    if p == True:
-                        if (i + 1) < len(categories) and type(categories[i+1]) == list:
-                            return self._flatten(categories[i:i+2])
-                        else:
-                            return [v]
-                    if p != []:
-                        return p
-            return  True if categories == category else []
-        return find(category, self._categories)
-    
-    def _flatten(self, L):
-        """Take a nested list and return a non-nested list"""
-        def flatten(L):
-            if type(L) == list:
-                result = []
-                for child in L:
-                    result.extend(flatten(child))
-                return result
-            return [L]
-        return flatten(L)
+                for index, child in enumerate(categories):
+                    yield from find_subcategories_gen(category, child, found)
+                    if child == category and index + 1 < len(categories) \
+                    and type(categories[index + 1]) == list:
+                        yield from find_subcategories_gen(category, categories[index + 1], True)
+            else:
+                if categories == category or found:
+                    yield categories
+        return [i for i in find_subcategories_gen(category, self._categories)]
 
 
 categories = Categories()
