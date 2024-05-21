@@ -175,3 +175,5 @@ while True:
         break
     else:
         sys.stderr.write('Invalid command. Try again.\n')
+        
+print("hello world")
