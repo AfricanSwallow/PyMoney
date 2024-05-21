@@ -1,4 +1,5 @@
 import sys
+# hi
 
 class Record:
     """Represent a record."""
