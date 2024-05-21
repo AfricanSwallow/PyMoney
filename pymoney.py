@@ -1,5 +1,6 @@
 import sys
 # hi
+# plan B
 
 class Record:
     """Represent a record."""
