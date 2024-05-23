@@ -1,4 +1,4 @@
-print("suck my cock")
+print("suck my dick")
 print("you are idiot")
 print("steven chu so pon")
 
