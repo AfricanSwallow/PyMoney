@@ -1,3 +1,2 @@
-print("111")
-print("222")
-print("fishing")
+print("123456789")
+
